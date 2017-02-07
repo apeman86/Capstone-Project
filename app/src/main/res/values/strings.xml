@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Smart Teleprompter</string>
+    <string name="thesaurus_api_key">9qlzvI8rEVfqMesMjr7r</string>
+    <string name="thesaurus_url">http://thesaurus.altervista.org/thesaurus/v1</string>
+</resources>
