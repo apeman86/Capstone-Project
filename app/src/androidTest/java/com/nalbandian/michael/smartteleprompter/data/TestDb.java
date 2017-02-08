@@ -25,7 +25,6 @@ import java.util.Set;
 
 import com.nalbandian.michael.smartteleprompter.data.generated.SpeechDatabase;
 import com.nalbandian.michael.smartteleprompter.data.generated.values.SpeechesValuesBuilder;
-import com.nalbandian.michael.smartteleprompter.data.SpeechColumns;
 
 public class TestDb extends AndroidTestCase {
 
@@ -123,7 +122,7 @@ public class TestDb extends AndroidTestCase {
         // Validate data in resulting Cursor with the original ContentValues
         // (you can use the validateCurrentRecord function in TestUtilities to validate the
         // query if you like)
-        validateCurrentRecord("Error: Location Query Validation Failed",
+        TestUtilities.validateCurrentRecord("Error: Location Query Validation Failed",
                 cursor, testValues.values());
         // Finally, close the cursor and database
         assertFalse("Error: More than one record returned from speeches query", cursor.moveToNext());
@@ -132,16 +131,4 @@ public class TestDb extends AndroidTestCase {
         assertFalse("Error: db did not close correctly", db.isOpen());
     }
 
-    static void validateCurrentRecord(String error, Cursor valueCursor, ContentValues expectedValues) {
-        Set<Map.Entry<String, Object>> valueSet = expectedValues.valueSet();
-        for (Map.Entry<String, Object> entry : valueSet) {
-            String columnName = entry.getKey();
-            int idx = valueCursor.getColumnIndex(columnName);
-            assertFalse("Column '" + columnName + "' not found. " + error, idx == -1);
-            String expectedValue = entry.getValue().toString();
-            assertEquals("Value '" + entry.getValue().toString() +
-                    "' did not match the expected value '" +
-                    expectedValue + "'. " + error, expectedValue, valueCursor.getString(idx));
-        }
-    }
 }
