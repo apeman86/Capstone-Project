@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_side_margin">16dp</dimen>
+    <dimen name="list_app_bar_height">50dp</dimen>
+    <dimen name="list_title_collaped_margin">24dp</dimen>
+    <dimen name="appbar_elevation">4dp</dimen>
+    <dimen name="scrolling_view_gap">50dp</dimen>
+</resources>
