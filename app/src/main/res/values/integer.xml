@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="COLOR_WHITE">0xFFFFFFFF</integer>
+    <integer name="COLOR_BLACK">0xFF000000</integer>
+    <integer name="SCROLL_DEFAULT">4</integer>
+    <integer name="FONT_SIZE_DEFAULT">20</integer>
+    <integer name="FONT_SIZE_MIN">12</integer>
+    <integer name="FONT_SIZE_MAX">26</integer>
+</resources>

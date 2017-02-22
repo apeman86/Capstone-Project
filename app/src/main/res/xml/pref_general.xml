@@ -1,0 +1,43 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--SwitchPreference
+        android:defaultValue="true"
+        android:key="example_switch"
+        android:summary="@string/pref_description_social_recommendations"
+        android:title="@string/pref_title_social_recommendations" /-->
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="@string/pref_background_color"
+        android:title="@string/pref_title_background_color"
+        android:summary="@string/pref_background_color_description"
+        android:defaultValue="@integer/COLOR_WHITE"
+        alphaSlider="false"
+        />
+
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="@string/pref_text_color"
+        android:title="@string/pref_title_text_color"
+        android:summary="@string/pref_text_color_description"
+        android:defaultValue="@integer/COLOR_BLACK"
+        alphaSlider="false"
+        />
+
+    <com.nalbandian.michael.smartteleprompter.NumberPickerPreference
+        android:key="@string/pref_scroll_speed"
+        android:title="@string/pref_title_scroll_speed"
+        android:summary="@string/pref_scroll_speed_description"
+        android:defaultValue="@integer/SCROLL_DEFAULT"/>
+
+    <com.nalbandian.michael.smartteleprompter.NumberPickerPreference
+        android:key="@string/pref_font_size"
+        android:title="@string/pref_title_font_size"
+        android:summary="@string/pref_font_size_description"
+        android:defaultValue="@integer/FONT_SIZE_DEFAULT"
+        app:minValue="@integer/FONT_SIZE_MIN"
+        app:maxValue="@integer/FONT_SIZE_MAX"/>
+
+
+</PreferenceScreen>

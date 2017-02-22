@@ -4,10 +4,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/speech_title"
         android:layout_marginLeft="@dimen/list_side_margin"
         android:layout_marginRight="@dimen/list_side_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -15,16 +15,47 @@
         android:layout_marginEnd="@dimen/list_side_margin"
         android:hint="@string/title"
         android:contentDescription="@string/title" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/speech_title_edit"
+        android:layout_marginLeft="@dimen/list_side_margin"
+        android:layout_marginRight="@dimen/list_side_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginStart="@dimen/list_side_margin"
+        android:layout_marginEnd="@dimen/list_side_margin"
+        android:hint="@string/title"
+        android:contentDescription="@string/title"
+        android:visibility="gone"/>
 
     <ScrollView
+        android:id="@+id/speech_view_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <EditText
+        <TextView
+            android:id="@+id/speech_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/list_side_margin"
             android:layout_marginRight="@dimen/list_side_margin"
+            android:lineSpacingMultiplier="1.25"
+            tools:text="@string/test_speech_value"
+            />
+    </ScrollView>
+    <ScrollView
+        android:id="@+id/speech_edit_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+        <EditText
+            android:id="@+id/speech_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/list_side_margin"
+            android:layout_marginRight="@dimen/list_side_margin"
+            android:inputType="text|textMultiLine"
             tools:text="@string/test_speech_value"
             />
     </ScrollView>

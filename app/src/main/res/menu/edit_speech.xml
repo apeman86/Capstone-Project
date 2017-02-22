@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/preview"
+        android:title="@string/preview"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_media_play" />
+    <item
+        android:id="@+id/save"
+        android:title="@string/save"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_save" />
+    <item
+        android:id="@+id/delete"
+        android:title="@string/delete"
+        app:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:enabled="false" />
+    <item
+        android:id="@+id/import_file"
+        android:title="@string/import_file"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/thesaurus"
+        android:title="@string/thesaurus"
+        app:showAsAction="never"/>
+</menu>

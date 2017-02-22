@@ -4,24 +4,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/play_speech_frame">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView"
+        android:id="@+id/play_speech_scroll_view"
         >
         <TextView
+            android:id="@+id/play_speech_display"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/list_side_margin"
             android:layout_marginLeft="@dimen/list_side_margin"
             android:layout_marginRight="@dimen/list_side_margin"
+            android:lineSpacingMultiplier="@dimen/line_height"
             tools:text="@string/test_speech_value"
             android:textColor="@color/textColor"
             />
     </ScrollView>
     <View
+        android:id="@+id/play_speech_top_overlay"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_side_margin"
         android:background="@color/overlay"
@@ -30,12 +34,22 @@
         />
 
     <View
+        android:id="@+id/play_speech_bottom_overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/scrolling_view_gap"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:elevation="@dimen/appbar_elevation"
         android:background="@color/overlay"/>
 
-
+    <TextView
+        android:id="@+id/countdowntimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_dark_background"
+        android:textColor="@color/titleColor"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="45dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:visibility="gone"/>
 </FrameLayout>

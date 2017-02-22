@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/pause"
+        android:title="@string/pause"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_media_pause"/>
+    <item android:id="@+id/resume"
+        android:title="@string/resume"
+        android:icon="@android:drawable/ic_media_play"
+        app:showAsAction="always"
+        android:visible="false" />
+    <item android:id="@+id/stop"
+        android:title="@string/stop"
+        app:showAsAction="always"
+        android:icon="@drawable/stop"
+        />
+</menu>
