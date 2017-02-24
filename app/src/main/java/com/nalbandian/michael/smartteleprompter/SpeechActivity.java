@@ -8,9 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.libraries.cast.companionlibrary.cast.DataCastManager;
 import com.nalbandian.michael.smartteleprompter.data.SpeechColumns;
 import com.nalbandian.michael.smartteleprompter.data.SpeechProvider;
 import com.nalbandian.michael.smartteleprompter.data.generated.values.SpeechesValuesBuilder;
@@ -18,10 +23,11 @@ import com.nalbandian.michael.smartteleprompter.data.generated.values.SpeechesVa
 
 public class SpeechActivity extends AppCompatActivity {
 
+    public static final String SPEECH_URI = "URI";
     private long mId = 0;
-    private Menu mMenu = null;
     private Uri mUri = null;
-
+    private boolean mTwoPane;
+    private DataCastManager mDataCastManager;
 
 
     @Override
@@ -45,37 +51,10 @@ public class SpeechActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.speech, menu);
-        mMenu = menu;
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.delete){
-            getApplicationContext().getContentResolver().delete(SpeechProvider.Speeches.CONTENT_URI, SpeechColumns._ID + "= ?", new String[]{""+mId});
-            this.finish();
-        } else if (id == R.id.edit) {
-            Intent intent = new Intent(getApplicationContext(), EditSpeechActivity.class).setData(mUri);
-            startActivity(intent);
-        } else if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        } else if (id == R.id.start_teleprompter) {
-            Intent intent = new Intent(getApplicationContext(), PlaySpeechActivity.class).setData(mUri);
-            startActivity(intent);
-        } else if (id == R.id.settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
+        super.addContentView(view, params);
     }
+
 }

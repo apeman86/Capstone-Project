@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="ga_trackingId">UA-92790440-1</string>
+    <string name="ga_autoActivityTracking">true</string>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+    <screenName name="com.nalbandian.michael.smartteleprompter.EditSpeechFragment">Edit/New Speech</screenName>
+    <screenName name="com.nalbandian.michael.smartteleprompter.SpeechFragment">Speech</screenName>
+    <screenName name="com.nalbandian.michael.smartteleprompter.SettingsActivity">Settings</screenName>
+    <screenName name="com.nalbandian.michael.smartteleprompter.PlaySpeechActivity">Play Speech</screenName>
+    <screenName name="com.nalbandian.michael.smartteleprompter.ThesaurusDialogFragment">Thesaurus</screenName>
+</resources>

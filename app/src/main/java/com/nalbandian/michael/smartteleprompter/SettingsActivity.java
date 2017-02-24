@@ -5,23 +5,17 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.MenuItem;
 
-import java.util.List;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -36,6 +30,8 @@ import java.util.List;
  */
 public class SettingsActivity extends AppCompatActivity {
 
+
+    private Tracker mTracker;
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -86,11 +82,22 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupActionBar();
-        // Display the fragment as the main content.
+        if(!getResources().getBoolean(R.bool.isTablet)){
+            setupActionBar();
+        }
+        SmartTeleprompterApplication application = (SmartTeleprompterApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        // Display the mFragment as the main content.
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new GeneralPreferenceFragment())
                 .commit();
+    }
+
+    @Override
+    protected void onResume() {
+        mTracker.setScreenName(SettingsActivity.class.getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        super.onResume();
     }
 
     @Override
@@ -108,15 +115,14 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private void setupActionBar() {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
 
 
     /**
-     * This method stops fragment injection in malicious applications.
+     * This method stops mFragment injection in malicious applications.
      * Make sure to deny any unknown fragments here.
      */
     protected boolean isValidFragment(String fragmentName) {
@@ -124,7 +130,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     /**
-     * This fragment shows general preferences only. It is used when the
+     * This mFragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)

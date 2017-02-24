@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/widget_list_item"
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/list_side_margin"
+        android:layout_marginRight="@dimen/list_side_margin"
+        android:layout_marginTop="@dimen/list_side_margin"
+        android:layout_marginBottom="@dimen/list_side_margin">
+
+        <TextView
+            android:id="@+id/widget_list_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Title"
+            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textDirection="anyRtl"
+            />
+        <TextView
+            android:id="@+id/widget_list_item_speech"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="@integer/num_of_lines"
+            tools:text="@string/test_speech_value"
+            android:textColor="@color/black"
+            android:textDirection="anyRtl"/>
+
+    </LinearLayout>
+</FrameLayout>

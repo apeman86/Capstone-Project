@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "440520919896",
+    "project_id": "smart-teleprompter"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440520919896:android:b4e5893d8d76bf08",
+        "android_client_info": {
+          "package_name": "com.nalbandian.michael.smartteleprompter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDga_epDq-pTZWLjGDa66nVayVtsOPIGjU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-92790440-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

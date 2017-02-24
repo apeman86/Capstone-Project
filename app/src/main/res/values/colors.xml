@@ -3,9 +3,10 @@
     <color name="colorPrimary">#FF9800</color>
     <color name="colorPrimaryDark">#F57C00</color>
     <color name="colorAccent">#18d5ff</color>
-    <color name="overlay">#33333333</color>
+    <color name="overlay">#77333333</color>
     <color name="textColor">#000000</color>
     <color name="titleColor">#ffffff</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="colorAccentTransparent">#8818d5ff</color>
 </resources>

@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/play_speech_frame">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,9 +16,12 @@
             android:layout_marginTop="@dimen/list_side_margin"
             android:layout_marginLeft="@dimen/list_side_margin"
             android:layout_marginRight="@dimen/list_side_margin"
+            android:padding="@dimen/list_side_margin"
             android:lineSpacingMultiplier="@dimen/line_height"
             tools:text="@string/test_speech_value"
             android:textColor="@color/textColor"
+            android:textDirection="anyRtl"
+            android:focusable="true"
             />
     </ScrollView>
     <View
@@ -47,9 +47,10 @@
         android:layout_height="wrap_content"
         android:background="@color/cardview_dark_background"
         android:textColor="@color/titleColor"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="45dp"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:visibility="gone"/>
+        android:layout_gravity="center"
+        android:padding="@dimen/list_title_collaped_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="gone"
+        android:focusable="true"
+        android:textDirection="anyRtl"/>
 </FrameLayout>

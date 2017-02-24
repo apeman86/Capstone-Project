@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/appbar_elevation"
+        android:layout_marginBottom="@dimen/ad_space_margin"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:elevation="@dimen/appbar_elevation">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+        <TextView
+            android:id="@+id/speech_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/list_side_margin"
+            android:layout_marginTop="@dimen/list_side_margin"
+            android:layout_marginLeft="@dimen/speech_side_margin"
+            android:layout_marginRight="@dimen/speech_side_margin"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textDirection="anyRtl"
+            android:textColor="@color/titleColor"
+            android:elevation="@dimen/appbar_elevation"
+            />
+        </FrameLayout>
+
+        <ScrollView
+            android:id="@+id/speech_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:id="@+id/speech_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/speech_side_margin"
+                android:layout_marginRight="@dimen/speech_side_margin"
+                android:lineSpacingMultiplier="@dimen/line_height"
+                tools:text="@string/test_speech_value"
+                android:textDirection="anyRtl"
+                />
+        </ScrollView>
+    </LinearLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/speech_adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_ad_unit_id"/>
+</FrameLayout>

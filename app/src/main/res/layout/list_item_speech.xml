@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/cardview_space"
+    android:layout_marginBottom="@dimen/cardview_space"
+    android:layout_marginLeft="@dimen/cardview_space"
+    android:layout_marginRight="@dimen/cardview_space"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground"
+    android:background="@drawable/touch_selector"
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/list_side_margin"
+        android:layout_marginRight="@dimen/list_side_margin"
+        >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Title"
+            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginLeft="@dimen/list_side_margin"
+            android:layout_marginRight="@dimen/list_side_margin"
+            android:layout_marginEnd="@dimen/list_side_margin"
+            android:layout_marginTop="@dimen/list_side_margin"
+            />
+        <TextView
+            android:id="@+id/speech"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="@integer/num_of_lines"
+            android:layoutDirection="inherit"
+            tools:text="@string/test_speech_value"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/list_side_margin"
+            android:layout_marginRight="@dimen/list_side_margin"
+            android:layout_marginEnd="@dimen/list_side_margin"
+            android:layout_marginBottom="@dimen/list_side_margin"
+            />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

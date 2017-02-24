@@ -1,17 +1,22 @@
 package com.nalbandian.michael.smartteleprompter;
 
-import android.content.ContentUris;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.WindowManager;
 
-import com.nalbandian.michael.smartteleprompter.data.SpeechColumns;
-import com.nalbandian.michael.smartteleprompter.data.SpeechProvider;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.google.android.libraries.cast.companionlibrary.cast.DataCastManager;
+
+import static com.nalbandian.michael.smartteleprompter.PlaySpeechFragment.SPEECH_URI;
+import com.nalbandian.michael.smartteleprompter.PlaySpeechFragment.SpeechCastChannel;
+
+import java.util.Locale;
 
 /**
  * Created by nalbandianm on 2/16/2017.
@@ -22,20 +27,34 @@ public class PlaySpeechActivity extends AppCompatActivity {
     private Uri mUri = null;
     private static PlaySpeechFragment mFragment = null;
     private Menu mMenu = null;
+    private boolean mTwoPane;
+    Tracker mTracker;
+    private DataCastManager mDataCastManager;
+    private SpeechCastChannel mChannel;
+    private TextToSpeech mTTS;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play_speech_activity);
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+        mTracker =  ((SmartTeleprompterApplication) getApplication()).getDefaultTracker();
+        mTwoPane = getResources().getBoolean(R.bool.isTablet);
+        if(mTwoPane){
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.width = dpToPx(700);
+            getWindow().setAttributes(params);
+        }
         if (savedInstanceState == null) {
 
             Bundle arguments = new Bundle();
             if(mUri == null) {
                 mUri = getIntent().getData();
             }
-            arguments.putParcelable(PlaySpeechFragment.SPEECH_URI, mUri);
+            arguments.putParcelable(SPEECH_URI, mUri);
             mFragment = new PlaySpeechFragment();
             mFragment.setArguments(arguments);
+
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.play_speech_container, mFragment)
@@ -44,35 +63,23 @@ public class PlaySpeechActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.play_speech, menu);
-        mMenu = menu;
-        return super.onCreateOptionsMenu(menu);
+    protected void onPause() {
+        super.onPause();
+        if(mTTS != null) {
+            mTTS.shutdown();
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == android.R.id.home || id == R.id.stop) {
-            mFragment.startStop(false);
-            onBackPressed();
-            return true;
-        }
-        else if (id == R.id.resume){
-            mFragment.pauseResume(false);
-            mMenu.findItem(R.id.resume).setVisible(false);
-            mMenu.findItem(R.id.pause).setVisible(true);
-        } else if (id == R.id.pause){
-            mFragment.pauseResume(true);
-            mMenu.findItem(R.id.pause).setVisible(false);
-            mMenu.findItem(R.id.resume).setVisible(true);
-        }
+    protected void onResume() {
+        mTracker.setScreenName(PlaySpeechActivity.class.getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        super.onResume();
+    }
 
-        return super.onOptionsItemSelected(item);
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
 }

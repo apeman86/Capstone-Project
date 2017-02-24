@@ -1,62 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/speech_title"
-        android:layout_marginLeft="@dimen/list_side_margin"
-        android:layout_marginRight="@dimen/list_side_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_marginStart="@dimen/list_side_margin"
-        android:layout_marginEnd="@dimen/list_side_margin"
-        android:hint="@string/title"
-        android:contentDescription="@string/title" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/speech_title_edit"
-        android:layout_marginLeft="@dimen/list_side_margin"
-        android:layout_marginRight="@dimen/list_side_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_marginStart="@dimen/list_side_margin"
-        android:layout_marginEnd="@dimen/list_side_margin"
-        android:hint="@string/title"
-        android:contentDescription="@string/title"
-        android:visibility="gone"/>
-
-    <ScrollView
-        android:id="@+id/speech_view_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <TextView
-            android:id="@+id/speech_view"
+        android:layout_marginBottom="@dimen/ad_space_margin"
+        android:elevation="@dimen/appbar_elevation">
+
+        <ScrollView
+            android:id="@+id/speech_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/list_side_margin"
-            android:layout_marginRight="@dimen/list_side_margin"
-            android:lineSpacingMultiplier="1.25"
-            tools:text="@string/test_speech_value"
-            />
-    </ScrollView>
-    <ScrollView
-        android:id="@+id/speech_edit_container"
+            >
+            <TextView
+                android:id="@+id/speech_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/list_side_margin"
+                android:layout_marginRight="@dimen/list_side_margin"
+                android:lineSpacingMultiplier="@dimen/line_height"
+                tools:text="@string/test_speech_value"
+                android:textDirection="anyRtl"
+                />
+        </ScrollView>
+    </LinearLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/speech_adView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        >
-        <EditText
-            android:id="@+id/speech_edit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/list_side_margin"
-            android:layout_marginRight="@dimen/list_side_margin"
-            android:inputType="text|textMultiLine"
-            tools:text="@string/test_speech_value"
-            />
-    </ScrollView>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_ad_unit_id"/>
+</FrameLayout>

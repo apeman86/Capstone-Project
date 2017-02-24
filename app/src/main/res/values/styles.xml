@@ -22,6 +22,9 @@
         <item name="android:textColorSecondary">@color/black</item>
     </style>
 
+    <style name="PlayTheme" parent="AppTheme">
+    </style>
+
     <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="titleTextStyle">@style/MyTitleTextStyle</item>
     </style>
