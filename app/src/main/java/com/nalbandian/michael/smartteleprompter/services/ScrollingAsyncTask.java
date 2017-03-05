@@ -34,7 +34,6 @@ public class ScrollingAsyncTask extends AsyncTask<Void, Void, Void> {
     private boolean mTwoPane = false;
     private boolean mRun = false;
     private boolean mPause = false;
-    private View mRootView;
     private TextView speech_view;
     private TextView countdown_timer;
     private View top_overlay;
@@ -46,7 +45,6 @@ public class ScrollingAsyncTask extends AsyncTask<Void, Void, Void> {
     private String speechText = null;
     private boolean mMoreLines = false;
     private DisplayMetrics mDisplaymetrics = new DisplayMetrics();
-    private int mBackgroundColor = 0x000000;
     private int mTextColor = 0x000000;
     private int mSpeed = 4;
     private int mFontSize = 20;
@@ -75,6 +73,7 @@ public class ScrollingAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+        mTwoPane = mContext.getResources().getBoolean(R.bool.isTablet);
         speechTextStyled = new SpannableString(speechText);
         handler.post(runnableCode);
         return null;
@@ -169,11 +168,11 @@ public class ScrollingAsyncTask extends AsyncTask<Void, Void, Void> {
         }
         for (int index = 0; index < mLines; index++) {
             speech_view.getLineBounds(index, bounds);
-            if ((mTwoPane? bounds.top + dpToPx(mContext.getResources().getDimension(R.dimen.list_side_margin))
+            if ((mTwoPane? bounds.top + dpToPx(mContext.getResources().getDimension(R.dimen.speech_side_margin))
                     : bounds.top) < top_overlay.getBottom() + scroll_view.getScrollY()) {
                 line_start = speech_view.getLayout().getLineStart(index);
             }
-            if (bounds.bottom < (mTwoPane ? bottom_overlay.getTop() - dpToPx(mContext.getResources().getDimension(R.dimen.list_side_margin))
+            if (bounds.bottom < (mTwoPane ? bottom_overlay.getTop() - dpToPx(mContext.getResources().getDimension(R.dimen.speech_side_margin))
                     : bottom_overlay.getTop()) + scroll_view.getScrollY()) {
                 line_end = speech_view.getLayout().getLineEnd(index);
             }
@@ -193,7 +192,9 @@ public class ScrollingAsyncTask extends AsyncTask<Void, Void, Void> {
             if (line_start != 0) {
                 speechTextStyled.setSpan(new ForegroundColorSpan(Color.LTGRAY), 0, line_start, 0);
             }
-            speechTextStyled.setSpan(new ForegroundColorSpan(mTextColor), line_start, line_end, 0);
+            if(line_start < line_end ) {
+                speechTextStyled.setSpan(new ForegroundColorSpan(mTextColor), line_start, line_end, 0);
+            }
             if (line_end != speechText.length() - 1) {
                 speechTextStyled.setSpan(new ForegroundColorSpan(Color.LTGRAY), line_end, speechText.length(), 0);
             }
