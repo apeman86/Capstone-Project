@@ -1,0 +1,215 @@
+<!--
+Copyright (C) 2014 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+	  body {
+	    overflow-y:scroll;
+		background-color: #000000;
+	  }
+      .message{
+		height: auto;
+		width: 75%;
+		border: 0px solid silver;
+		display: block;
+		vertical-align: middle;
+		color: #FFFFFF;
+		background-color: #000000;
+		font-weight: bold;
+		font-family: Verdana, Geneva, sans-serif;
+		font-size: 40px;
+		padding: 0 5%;
+		margin-top: 18%;
+		margin-left: 6%;
+		margin-bottom: 18%;
+		z-index: 0;
+	 }
+	 .top-overlay {
+		height: 33%;
+		width: 100%;
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 0;
+		background-color: rgba(100,100,100, 0.6); /* Black w/opacity */
+		overflow-x: hidden; /* Disable horizontal scroll */
+	}
+	
+	.bottom-overlay {
+		height: 33%;
+		width: 100%;
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 65%;
+		background-color: rgba(100,100,100, 0.6); /* Black w/opacity */
+		overflow-x: hidden; /* Disable horizontal scroll */
+	}
+	.countdown-overlay {
+		height: 76%;
+		width: 100%;
+		font-size: 70px;
+		position: fixed;
+		z-index: 2;
+		left: 0;
+		top: 22%;
+		background-color: rgba(100,100,100, 0.8);
+		display: none;
+		text-align: center;
+		padding-top: 10%;
+		color: white;
+	}
+	.header {
+		position: fixed;
+		top: 0;
+		background: #FF9800;
+		height: 10%;
+		width: 100%;
+		font-size: 66px;
+		color: white;
+		z-index: 2;
+		text-indent: 6%;
+		padding: 3%;
+	}
+}
+	
+    </style>
+    <title>Cast Hello Text</title>
+  </head>
+  <body>
+	<div class="header">Smart Teleprompter</div>
+	<div class="top-overlay"></div>
+	<div class="message" id="message"></div>
+	<div class="bottom-overlay"></div>
+	<div class="countdown-overlay" id="countDown">Begin In...</div>
+    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+	<script type="text/javascript" src="./scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+	var play = true;
+	var stop = false;
+	var countDown = 6;
+	var countDownObj = $('#countDown');
+      window.onload = function() {
+        cast.receiver.logger.setLevelValue(0);
+        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+        console.log('Starting Receiver Manager');
+
+        // handler for the 'ready' event
+        castReceiverManager.onReady = function(event) {
+          console.log('Received Ready event: ' + JSON.stringify(event.data));
+          window.castReceiverManager.setApplicationState("Application status is ready...");
+        };
+
+        // handler for 'senderconnected' event
+        castReceiverManager.onSenderConnected = function(event) {
+          console.log('Received Sender Connected event: ' + event.data);
+          console.log(window.castReceiverManager.getSender(event.data).userAgent);
+        };
+
+        // handler for 'senderdisconnected' event
+        castReceiverManager.onSenderDisconnected = function(event) {
+          console.log('Received Sender Disconnected event: ' + event.data);
+		  window.messageBus.send(event.senderId, event.data);
+          if (window.castReceiverManager.getSenders().length == 0) {
+	        window.close();
+	      }
+        };
+
+        // handler for 'systemvolumechanged' event
+        castReceiverManager.onSystemVolumeChanged = function(event) {
+          console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' +
+              event.data['muted']);
+        };
+
+        // create a CastMessageBus to handle messages for a custom namespace
+        window.messageBus =
+          window.castReceiverManager.getCastMessageBus(
+              'urn:x-cast:com.nalbandian.michael.smartteleprompter');
+
+        // handler for the CastMessageBus message event
+        window.messageBus.onMessage = function(event) {
+          console.log('Message [' + event.senderId + ']: ' + event.data);
+          // display the message from the sender
+          json = JSON.parse(event.data);
+		  if(json.type != null) {
+			  if(json.type === 'setup'){
+				displayText(json.value);
+				scrollPage();
+			  }	else if (json.type === 'action') {
+				play = json.value === 'play';
+				if(json.value === 'stop'){
+					stop = true;
+					$('body').scrollTop(0);
+					countDown = 6;
+				} else if(json.value === 'clear'){
+					stop = true;
+					countDown = 6;
+					$('body').scrollTop(0);
+					displayText("");
+				}
+			  } 
+			  
+		  }
+          // inform all senders on the CastMessageBus of the incoming message event
+          // sender message listener will be invoked
+          window.messageBus.send(event.senderId, event.data);
+        }
+
+        // initialize the CastReceiverManager with an application status message
+        window.castReceiverManager.start({statusText: "Application is starting"});
+        console.log('Receiver Manager started');
+      };
+	  function scrollPage(){
+		if(!stop){
+			if(countDown > 0){
+				countDownObj.show();
+				if(play){
+					if(countDown < 6){
+						countDownObj.html(countDown);
+					}
+					countDown--;
+				}
+				setTimeout(function(){
+					scrollPage();
+				},1000);
+			} else {
+				countDownObj.hide();
+				countDownObj.html('Begin in...');
+				setTimeout(function(){
+					if($(window).scrollTop() + $(window).height() == $(document).height()) {
+						play = true;
+						stop = true;
+					}
+					if(play){
+						$('body').scrollTop($('body').scrollTop()+1);
+					}
+					scrollPage();
+				}, 75);
+			}
+		}
+	  };
+	  
+
+      // utility function to display the text message in the input field
+      function displayText(text) {
+        console.log(text);
+        document.getElementById("message").innerHTML=text;
+        window.castReceiverManager.setApplicationState(text);
+      };
+    </script>
+  </body>
+</html>
