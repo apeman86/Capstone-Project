@@ -120,7 +120,6 @@ public class PlaySpeechFragment extends Fragment implements LoaderManager.Loader
     private boolean mAccessibility = false;
     private ScrollingAsyncTask mScrollingAsyncTask;
     AccessibilityManager mAccessibilityManager;
-    private TextToSpeech mTTS;
     private boolean notInitialized = true;
 
     @Override
@@ -215,7 +214,6 @@ public class PlaySpeechFragment extends Fragment implements LoaderManager.Loader
             if(mDataCastManager.isConnected()) {
                 sendDataMessage(mChannel, ACTION, STOP);
             }
-            mTTS.shutdown();
             getActivity().onBackPressed();
             return true;
         }  else if (id == R.id.resume){

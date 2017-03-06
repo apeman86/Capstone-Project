@@ -97,6 +97,8 @@ public class AccessibilityHelperAsyncTask extends AsyncTask<Void, Void, Void> {
                     mTTS.setSpeechRate(.75f);
                     mTTS.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
                 }
+            } else {
+                mTTS.shutdown();
             }
 
         };
