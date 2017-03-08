@@ -152,9 +152,7 @@ public class SpeechFragment extends Fragment implements LoaderManager.LoaderCall
                 startActivity(intent);
             }
         } else if (id == android.R.id.home) {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
             getActivity().finish();
-            startActivity(intent);
         } else if (id == R.id.start_teleprompter) {
             Intent intent = new Intent(getActivity(), PlaySpeechActivity.class).setData(mUri);
             startActivity(intent);
